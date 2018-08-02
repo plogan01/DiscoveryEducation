@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://plugin.powerschool.pearson.com"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation='http://plugin.powerschool.pearson.com plugin.xsd'
+        name="Discovery Education Roster"
+        version="0.1.4"
+        description="Create PowerQueries for Automated Roster Export">
+
+	<oauth></oauth>
+	
+	<access_request>
+		<field table="SCHOOLS" field="NAME" access="ViewOnly" />
+    <field table="SCHOOLS" field="DISTRICT_NUMBER" access="ViewOnly" />
+		<field table="STUDENTS" field="STUDENT_NUMBER" access="ViewOnly" />
+		<field table="STUDENTS" field="GRADE_LEVEL" access="ViewOnly" />
+		<field table="STUDENTS" field="SCHOOLID" access="ViewOnly" />
+		<field table="STUDENTS" field="FIRST_NAME" access="ViewOnly" />
+		<field table="STUDENTS" field="LAST_NAME" access="ViewOnly" />
+		<field table="STUDENTS" field="MIDDLE_NAME" access="ViewOnly" />
+    <field table="STUDENTS" field="ENROLL_STATUS" access="ViewOnly" />
+    <field table="STUDENTS" field="GUARDIANEMAIL" access="ViewOnly" />
+    <field table="U_DEF_ACCOUNT_MGMT" field="COMPUTER_ID" access="ViewOnly"/>
+    <field table="U_DEF_ACCOUNT_MGMT" field="COMPUTER_PASSWORD" access="ViewOnly"/>
+    <field table="CC" field="ID" access="ViewOnly" />
+    <field table="CC" field="SCHOOLID" access="ViewOnly" />
+    <field table="CC" field="STUDYEAR" access="ViewOnly" />
+    <field table="CC" field="EXPRESSION" access="ViewOnly" />
+    <field table="CC" field="TERMID" access="ViewOnly" />
+    <field table="CC" field="TEACHERID" access="ViewOnly" />
+    <field table="CC" field="COURSE_NUMBER" access="ViewOnly" />
+    <field table="TEACHERS" field="DCID" access="ViewOnly" />
+    <field table="TEACHERS" field="FIRST_NAME" access="ViewOnly" />
+    <field table="TEACHERS" field="LAST_NAME" access="ViewOnly" />
+    <field table="TEACHERS" field="TEACHERNUMBER" access="ViewOnly" />
+    <field table="TEACHERS" field="EMAIL_ADDR" access="ViewOnly" />
+    <field table="SECTIONS" field="ID" access="ViewOnly" />
+    <field table="SECTIONS" field="ROOM" access="ViewOnly" />
+    <field table="SECTIONS" field="NO_OF_STUDENTS" access="ViewOnly" />
+    <field table="COURSES" field="COURSE_NAME" access="ViewOnly" />
+	</access_request>
+	
+    <publisher name="Paul Logan">
+        <contact email="plogan01@kibsd.org" />
+    </publisher>
+
+</plugin>
