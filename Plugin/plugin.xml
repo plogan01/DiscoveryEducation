@@ -3,7 +3,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation='http://plugin.powerschool.pearson.com plugin.xsd'
         name="Discovery Education Roster"
-        version="0.1.4"
+        version="0.2.0"
         description="Create PowerQueries for Automated Roster Export">
 
 	<oauth></oauth>

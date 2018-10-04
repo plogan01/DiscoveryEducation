@@ -112,7 +112,8 @@
 	        JOIN Courses c ON cc.Course_Number = c.Course_Number
 	        JOIN Schools sch ON cc.SchoolID = sch.school_number
         WHERE cc.TermID >= 2800
-        AND (c.COURSE_NAME LIKE '%SCIENCE%' OR c.CreditType = 'SC') 
+        AND t.email_addr IS NOT NULL
+        AND (c.COURSE_NAME LIKE '%Science%' OR c.CreditType = 'SC') 
 			]]>
     </sql>
   </query>
@@ -170,7 +171,7 @@
         WHERE cc.TermID >= 2800
             AND (
                 c.credittype = 'SC'
-                OR c.course_name LIKE '%SCIENCE%'
+                OR c.course_name LIKE '%Science%'
             )
 			]]>
     </sql>
@@ -222,7 +223,7 @@
         WHERE cc.TermID >= 2800
         AND (
                 c.credittype = 'SC'
-                OR c.course_name LIKE '%SCIENCE%'
+                OR c.course_name LIKE '%Science%'
             )
         UNION
         SELECT DISTINCT
@@ -259,7 +260,7 @@
             AND cc.TermID >= 2800
             AND (
                 c.credittype = 'SC'
-                OR c.course_name LIKE '%SCIENCE%'
+                OR c.course_name LIKE '%Science%'
             )
 			]]>
     </sql>
