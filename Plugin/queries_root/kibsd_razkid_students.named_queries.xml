@@ -33,7 +33,7 @@
 	          JOIN Schools sch ON s.SchoolID = sch.school_number
         WHERE cc.TermID >= 2800
             AND c.COURSE_NAME LIKE '%Reading%'
-            AND cc.schoolid IN (280010,280020,280150,280030,280040,280080,280090,280100,280110,280060,280120)
+            AND cc.schoolid IN (280010,280020,280150,280030,280040,280080,280090,280100,280110,280060,280120,280180)
             AND s.grade_level IN (0,1,2,3,4,5)
 			]]>
 		</sql>
@@ -65,7 +65,7 @@
 	        JOIN Schools sch ON cc.SchoolID = sch.school_number
         WHERE cc.TermID >= 2800
           AND c.COURSE_NAME LIKE '%Reading%'
-          AND cc.schoolid IN (280010,280020,280150,280030,280040,280080,280090,280100,280110,280060,280120)
+          AND cc.schoolid IN (280010,280020,280150,280030,280040,280080,280090,280100,280110,280060,280120,280180)
 			]]>
     </sql>
   </query>
