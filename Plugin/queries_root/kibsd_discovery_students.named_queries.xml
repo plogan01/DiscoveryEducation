@@ -164,7 +164,7 @@
                 '' AS "Subject",
                 CASE 
                     WHEN SUBSTR(cc.termid,4,1) > 0 
-                        THEN 'S' || SUBSTR(cc.termid,4,1)
+                        THEN SUBSTR(cc.termid,4,1)
                     ELSE NULL 
                 END AS "Semester/Block",
                 'N' AS "Archive Flag"
