@@ -19,274 +19,291 @@
 		<sql>
 			<![CDATA[
 				SELECT DISTINCT
-                CASE 
-                    WHEN s.schoolid = 280010 THEN '45BA-97D3'
-                    WHEN s.schoolid = 280020 THEN '66AD-DAF6'
-                    WHEN s.schoolid = 280030 THEN '7268-4754'
-                    WHEN s.schoolid = 280040 THEN '4323-9D27'
-                    WHEN s.schoolid = 280050 THEN '7269-DF64'
-                    WHEN s.schoolid = 280060 THEN '726C-E3C2'
-                    WHEN s.schoolid = 280070 THEN '726B-6BF6'
-                    WHEN s.schoolid = 280080 THEN '492B-82AB'
-                    WHEN s.schoolid = 280090 THEN '4A39-8A83'
-                    WHEN s.schoolid = 280100 THEN '66AD-A812'
-                    WHEN s.schoolid = 280110 THEN '66AD-D2B7'
-                    WHEN s.schoolid = 280120 THEN '66AD-1D1A'
-                    WHEN s.schoolid = 280180 THEN '726C-69B7'
-                    WHEN s.schoolid = 288010 THEN ''
-                END AS "Site Passcode",
-                'KIBSD' AS "Account Name",
-                sch.name AS "Site Name",
-                s.first_name AS "First Name",
-                SUBSTR(s.middle_name,0,1) AS "Middle Name",
-                s.last_name AS "Last Name",
-                sa.computer_ID || '@kibsd.org@office365.discoveryeducation.com' AS "UserName",
-                '' AS "Password",
-                s.student_number AS "Student ID",
-                CASE 
-                    WHEN s.grade_level = 0 THEN 'K'
-                    ELSE TO_CHAR(s.grade_level)
-                END AS "Grade",
-                '' AS "Parent Email",
-                CASE 
-                    WHEN s.enroll_status <= 0 THEN 'N'
-                    ELSE 'Y'
-                END AS "Archive Flag"                
-        FROM Students s
-            JOIN U_DEF_ACCOUNT_MGMT sa ON s.dcid = sa.studentsdcid
-	        JOIN Schools sch ON s.SchoolID = sch.school_number
-        WHERE s.schoolid NOT IN (999999,288010) AND s.grade_level >= 0
+                    CASE 
+                        WHEN s.schoolid = 280010 THEN '45BA-97D3'
+                        WHEN s.schoolid = 280020 THEN '66AD-DAF6'
+                        WHEN s.schoolid = 280030 THEN '7268-4754'
+                        WHEN s.schoolid = 280040 THEN '4323-9D27'
+                        WHEN s.schoolid = 280050 THEN '7269-DF64'
+                        WHEN s.schoolid = 280060 THEN '726C-E3C2'
+                        WHEN s.schoolid = 280070 THEN '726B-6BF6'
+                        WHEN s.schoolid = 280080 THEN '492B-82AB'
+                        WHEN s.schoolid = 280090 THEN '4A39-8A83'
+                        WHEN s.schoolid = 280100 THEN '66AD-A812'
+                        WHEN s.schoolid = 280110 THEN '66AD-D2B7'
+                        WHEN s.schoolid = 280120 THEN '66AD-1D1A'
+                        WHEN s.schoolid = 280180 THEN '726C-69B7'
+                        WHEN s.schoolid = 288010 THEN ''
+                    END AS "Site Passcode",
+                    'KIBSD' AS "Account Name",
+                    sch.name AS "Site Name",
+                    s.first_name AS "First Name",
+                    SUBSTR(s.middle_name,0,1) AS "Middle Name",
+                    s.last_name AS "Last Name",
+                    sa.computer_ID || '@kibsd.org@office365.discoveryeducation.com' AS "UserName",
+                    '' AS "Password",
+                    s.student_number AS "Student ID",
+                    CASE 
+                        WHEN s.grade_level = 0 THEN 'K'
+                        ELSE TO_CHAR(s.grade_level)
+                    END AS "Grade",
+                    '' AS "Parent Email",
+                    CASE 
+                        WHEN s.enroll_status <= 0 THEN 'N'
+                        ELSE 'Y'
+                    END AS "Archive Flag"  
+                    
+                FROM Students s
+                    JOIN U_DEF_ACCOUNT_MGMT sa ON s.dcid = sa.studentsdcid
+	                JOIN Schools sch ON s.SchoolID = sch.school_number
+
+                WHERE 
+                    s.schoolid NOT IN (999999,288010) 
+                AND 
+                    s.grade_level >= 0
 			]]>
 		</sql>
 	</query>
-  <query name="kibsd.discovery.teachers" coreTable="CC" flattened="true">
-    <summary>Discovery Education Teacher Roster</summary>
-    <description>Provide an export for discovery education</description>
-    <columns>
-      <column column="CC.SCHOOLID">SchoolID</column>
-      <column column="SCHOOLS.DISTRICT_NUMBER">District_Number</column>
-      <column column="SCHOOLS.NAME">Name</column>
-      <column column="TEACHERS.FIRST_NAME">First_Name</column>
-      <column column="TEACHERS.LAST_NAME">Last_Name</column>
-      <column column="TEACHERS.TEACHERNUMBER">TeacherNumber</column>
-      <column column="CC.ID">ID</column>
-      <column column="CC.TERMID">TERMID</column>
-      <column column="TEACHERS.DCID">DCID</column>
-      <column column="TEACHERS.EMAIL_ADDR">EMAIL_ADDR</column>
-      <column column="CC.EXPRESSION">EXPRESSION</column>
-      <column column="CC.STUDYEAR">STUDYEAR</column>
-    </columns>
-    <sql>
-      <![CDATA[
+    <query name="kibsd.discovery.teachers" coreTable="CC" flattened="true">
+        <summary>Discovery Education Teacher Roster</summary>
+        <description>Provide an export for discovery education</description>
+        <columns>
+            <column column="CC.SCHOOLID">SchoolID</column>
+            <column column="SCHOOLS.DISTRICT_NUMBER">District_Number</column>
+            <column column="SCHOOLS.NAME">Name</column>
+            <column column="TEACHERS.FIRST_NAME">First_Name</column>
+            <column column="TEACHERS.LAST_NAME">Last_Name</column>
+            <column column="TEACHERS.TEACHERNUMBER">TeacherNumber</column>
+            <column column="CC.ID">ID</column>
+            <column column="CC.TERMID">TERMID</column>
+            <column column="TEACHERS.DCID">DCID</column>
+            <column column="TEACHERS.EMAIL_ADDR">EMAIL_ADDR</column>
+            <column column="CC.EXPRESSION">EXPRESSION</column>
+            <column column="CC.STUDYEAR">STUDYEAR</column>
+        </columns>
+        <sql>
+            <![CDATA[
+                SELECT DISTINCT
+                    CASE 
+                        WHEN cc.schoolid = 280010 THEN '45BA-97D3'
+                        WHEN cc.schoolid = 280020 THEN '66AD-DAF6'
+                        WHEN cc.schoolid = 280030 THEN '7268-4754'
+                        WHEN cc.schoolid = 280040 THEN '4323-9D27'
+                        WHEN cc.schoolid = 280050 THEN '7269-DF64'
+                        WHEN cc.schoolid = 280060 THEN '726C-E3C2'
+                        WHEN cc.schoolid = 280070 THEN '726B-6BF6'
+                        WHEN cc.schoolid = 280080 THEN '492B-82AB'
+                        WHEN cc.schoolid = 280090 THEN '4A39-8A83'
+                        WHEN cc.schoolid = 280100 THEN '66AD-A812'
+                        WHEN cc.schoolid = 280110 THEN '66AD-D2B7'
+                        WHEN cc.schoolid = 280120 THEN '66AD-1D1A'
+                        WHEN cc.schoolid = 280180 THEN '726C-69B7'
+                        WHEN cc.schoolid = 288010 THEN ''
+                    END AS "Site Passcode",
+                    'KIBSD' AS "Account Name",
+                    sch.name AS "Site Name",
+                    t.First_Name AS "First Name",
+                    t.Last_Name AS "Last Name",
+                    t.email_addr || '@office365.discoveryeducation.com' AS "UserName",
+                    '' AS "Password",
+                    '' AS "Grade",
+                    TO_CHAR(t.dcid) AS "Teacher ID",
+                    t.Email_Addr AS "Email",
+                    '' AS "Assessment Access Flag",
+                    'N' AS "Archive Flag"
+                
+                FROM SECTIONTEACHER st
+    
+                    JOIN Sections sec ON st.SectionID = sec.ID 
+                    JOIN Teachers t ON st.teacherid = t.ID 
+                    JOIN Courses c ON sec.course_number = c.course_number
+                    JOIN Schools sch ON sec.schoolid = sch.school_number
+                    JOIN CC cc ON st.sectionid = cc.sectionid
+                    JOIN Students s ON cc.studentid = s.id
+    
+                WHERE
+                    st.roleid IN(25,26)  
+                AND 
+                    FLOOR(cc.termid/100) = EXTRACT(YEAR FROM SYSDATE) + CASE WHEN EXTRACT (MONTH FROM SYSDATE) >=7 THEN 1 ELSE 0 END - 1991
+                AND 
+                    t.email_addr IS NOT NULL
+                AND 
+                    (c.COURSE_NAME LIKE '%Science%' OR c.CreditType = 'SC') 
+		    ]]>
+        </sql>
+    </query>
+    <query name="kibsd.discovery.classes" coreTable="CC" flattened="true">
+        <summary>Discovery Education Class Roster</summary>
+        <description>Provide an export for discovery education</description>
+        <columns>
+            <column column="CC.SCHOOLID">SchoolID</column>
+            <column column="SCHOOLS.DISTRICT_NUMBER">District_Number</column>
+            <column column="SCHOOLS.NAME">Name</column>
+            <column column="COURSES.COURSE_NAME">Course_Name</column>
+            <column column="SECTIONS.ID">ID</column>
+            <column column="SECTIONS.ROOM">Room</column>
+            <column column="CC.TERMID">TERMID</column>
+            <column column="SECTIONS.NO_OF_STUDENTS">NO_OF_STUDENTS</column>
+            <column column="CC.COURSE_NUMBER">COURSE_NUMBER</column>
+            <column column="CC.TEACHERID">TEACHERID</column>
+            <column column="CC.EXPRESSION">EXPRESSION</column>
+            <column column="CC.STUDYEAR">STUDYEAR</column>
+        </columns>
+        <sql>
+            <![CDATA[
 				SELECT DISTINCT
-                CASE 
-                    WHEN cc.schoolid = 280010 THEN '45BA-97D3'
-                    WHEN cc.schoolid = 280020 THEN '66AD-DAF6'
-                    WHEN cc.schoolid = 280030 THEN '7268-4754'
-                    WHEN cc.schoolid = 280040 THEN '4323-9D27'
-                    WHEN cc.schoolid = 280050 THEN '7269-DF64'
-                    WHEN cc.schoolid = 280060 THEN '726C-E3C2'
-                    WHEN cc.schoolid = 280070 THEN '726B-6BF6'
-                    WHEN cc.schoolid = 280080 THEN '492B-82AB'
-                    WHEN cc.schoolid = 280090 THEN '4A39-8A83'
-                    WHEN cc.schoolid = 280100 THEN '66AD-A812'
-                    WHEN cc.schoolid = 280110 THEN '66AD-D2B7'
-                    WHEN cc.schoolid = 280120 THEN '66AD-1D1A'
-                    WHEN cc.schoolid = 280180 THEN '726C-69B7'
-                    WHEN cc.schoolid = 288010 THEN ''
-                END AS "Site Passcode",
-                'KIBSD' AS "Account Name",
-                sch.name AS "Site Name",
-                t.First_Name AS "First Name",
-                t.Last_Name AS "Last Name",
-                t.email_addr || '@office365.discoveryeducation.com' AS "UserName",
-                '' AS "Password",
-                '' AS "Grade",
-                TO_CHAR(t.dcid) AS "Teacher ID",
-                t.Email_Addr AS "Email",
-                '' AS "Assessment Access Flag",
-                'N' AS "Archive Flag"                
-        FROM CC cc
-	        JOIN Sections sec ON cc.SectionID = sec.ID
-	        JOIN Teachers t ON sec.Teacher = t.ID
-	        JOIN Courses c ON cc.Course_Number = c.Course_Number
-	        JOIN Schools sch ON cc.SchoolID = sch.school_number
-        WHERE FLOOR(cc.termid/100) = EXTRACT(YEAR FROM SYSDATE) + CASE WHEN EXTRACT (MONTH FROM SYSDATE) >=7 THEN 1 ELSE 0 END - 1991
-        AND t.email_addr IS NOT NULL
-        AND (c.COURSE_NAME LIKE '%Science%' OR c.CreditType = 'SC') 
+                    CASE 
+                        WHEN cc.schoolid = 280010 THEN '45BA-97D3'
+                        WHEN cc.schoolid = 280020 THEN '66AD-DAF6'
+                        WHEN cc.schoolid = 280030 THEN '7268-4754'
+                        WHEN cc.schoolid = 280040 THEN '4323-9D27'
+                        WHEN cc.schoolid = 280050 THEN '7269-DF64'
+                        WHEN cc.schoolid = 280060 THEN '726C-E3C2'
+                        WHEN cc.schoolid = 280070 THEN '726B-6BF6'
+                        WHEN cc.schoolid = 280080 THEN '492B-82AB'
+                        WHEN cc.schoolid = 280090 THEN '4A39-8A83'
+                        WHEN cc.schoolid = 280100 THEN '66AD-A812'
+                        WHEN cc.schoolid = 280110 THEN '66AD-D2B7'
+                        WHEN cc.schoolid = 280120 THEN '66AD-1D1A'
+                        WHEN cc.schoolid = 280180 THEN '726C-69B7'
+                        WHEN cc.schoolid = 288010 THEN ''
+                    END AS "Site Passcode",
+                    'KIBSD' AS "Account Name",
+                    sch.name AS "Site Name",
+                    c.course_name || (CASE WHEN SUBSTR(cc.termid,4,1) > 0 THEN ' S' || SUBSTR(cc.termid,4,1) || ' P' || SUBSTR(sec.expression,0,1)  ELSE NULL END) AS "Class Name",
+                    sec.id AS "Class ID",
+                    sec.room AS "Class Description",
+                    SUBSTR(cc.termid,0,2) + 1991 AS "School Year",
+                    '' AS "Benchmark Class Flag",
+                    '' AS "Grade",
+                    '' AS "Subject",
+                    CASE 
+                        WHEN SUBSTR(cc.termid,4,1) > 0 
+                            THEN SUBSTR(cc.termid,4,1)
+                        ELSE NULL 
+                    END AS "Semester/Block",
+                    'N' AS "Archive Flag"
+
+                FROM CC cc
+	                JOIN Sections sec ON cc.SectionID = sec.ID
+	                JOIN Courses c ON cc.Course_Number = c.Course_Number
+	                JOIN Schools sch ON cc.SchoolID = sch.school_number
+
+                WHERE 
+                    (
+                            (cc.termid = TO_NUMBER( TO_CHAR(EXTRACT(YEAR FROM SYSDATE) - CASE WHEN EXTRACT(MONTH FROM SYSDATE) >= 7 THEN 1990 ELSE 1991 END) || CASE WHEN EXTRACT(MONTH FROM SYSDATE) > 7 THEN '01' ELSE '02' END ))
+                        OR
+                            (SUBSTR(c.course_name,0,7) = 'Science' AND FLOOR(cc.termid/100) = EXTRACT(YEAR FROM SYSDATE) + CASE WHEN EXTRACT (MONTH FROM SYSDATE) >=7 THEN 1 ELSE 0 END - 1991)
+                    )
+                AND 
+                    sch.school_number != 288010
+                AND 
+                    (c.credittype = 'SC' OR c.course_name LIKE '%Science%')
 			]]>
-    </sql>
-  </query>
-  <query name="kibsd.discovery.classes" coreTable="CC" flattened="true">
-    <summary>Discovery Education Class Roster</summary>
-    <description>Provide an export for discovery education</description>
-    <columns>
-      <column column="CC.SCHOOLID">SchoolID</column>
-      <column column="SCHOOLS.DISTRICT_NUMBER">District_Number</column>
-      <column column="SCHOOLS.NAME">Name</column>
-      <column column="COURSES.COURSE_NAME">Course_Name</column>
-      <column column="SECTIONS.ID">ID</column>
-      <column column="SECTIONS.ROOM">Room</column>
-      <column column="CC.TERMID">TERMID</column>
-      <column column="SECTIONS.NO_OF_STUDENTS">NO_OF_STUDENTS</column>
-      <column column="CC.COURSE_NUMBER">COURSE_NUMBER</column>
-      <column column="CC.TEACHERID">TEACHERID</column>
-      <column column="CC.EXPRESSION">EXPRESSION</column>
-      <column column="CC.STUDYEAR">STUDYEAR</column>
-    </columns>
-    <sql>
-      <![CDATA[
-				SELECT DISTINCT
-                CASE 
-                    WHEN cc.schoolid = 280010 THEN '45BA-97D3'
-                    WHEN cc.schoolid = 280020 THEN '66AD-DAF6'
-                    WHEN cc.schoolid = 280030 THEN '7268-4754'
-                    WHEN cc.schoolid = 280040 THEN '4323-9D27'
-                    WHEN cc.schoolid = 280050 THEN '7269-DF64'
-                    WHEN cc.schoolid = 280060 THEN '726C-E3C2'
-                    WHEN cc.schoolid = 280070 THEN '726B-6BF6'
-                    WHEN cc.schoolid = 280080 THEN '492B-82AB'
-                    WHEN cc.schoolid = 280090 THEN '4A39-8A83'
-                    WHEN cc.schoolid = 280100 THEN '66AD-A812'
-                    WHEN cc.schoolid = 280110 THEN '66AD-D2B7'
-                    WHEN cc.schoolid = 280120 THEN '66AD-1D1A'
-                    WHEN cc.schoolid = 280180 THEN '726C-69B7'
-                    WHEN cc.schoolid = 288010 THEN ''
-                END AS "Site Passcode",
-                'KIBSD' AS "Account Name",
-                sch.name AS "Site Name",
-                c.course_name || (CASE WHEN SUBSTR(cc.termid,4,1) > 0 THEN ' S' || SUBSTR(cc.termid,4,1) || ' P' || SUBSTR(sec.expression,0,1)  ELSE NULL END) AS "Class Name",
-                sec.id AS "Class ID",
-                sec.room AS "Class Description",
-                SUBSTR(cc.termid,0,2) + 1991 AS "School Year",
-                '' AS "Benchmark Class Flag",
-                '' AS "Grade",
-                '' AS "Subject",
-                CASE 
-                    WHEN SUBSTR(cc.termid,4,1) > 0 
-                        THEN SUBSTR(cc.termid,4,1)
-                    ELSE NULL 
-                END AS "Semester/Block",
-                'N' AS "Archive Flag"
-        FROM CC cc
-	        JOIN Sections sec ON cc.SectionID = sec.ID
-	        JOIN Courses c ON cc.Course_Number = c.Course_Number
-	        JOIN Schools sch ON cc.SchoolID = sch.school_number
-        WHERE 
-            (
-                    (cc.termid = TO_NUMBER( TO_CHAR(EXTRACT(YEAR FROM SYSDATE) - CASE WHEN EXTRACT(MONTH FROM SYSDATE) >= 7 THEN 1990 ELSE 1991 END) || CASE WHEN EXTRACT(MONTH FROM SYSDATE) > 7 THEN '01' ELSE '02' END ))
-                OR
-                    (SUBSTR(c.course_name,0,7) = 'Science' AND FLOOR(cc.termid/100) = EXTRACT(YEAR FROM SYSDATE) + CASE WHEN EXTRACT (MONTH FROM SYSDATE) >=7 THEN 1 ELSE 0 END - 1991)
-            )
-            AND sch.school_number != 288010
-            AND (
-                c.credittype = 'SC'
-                OR c.course_name LIKE '%Science%'
-            )
-			]]>
-    </sql>
-  </query>
-  <query name="kibsd.discovery.roster" coreTable="CC" flattened="true">
-    <summary>Discovery Education Combined Roster</summary>
-    <description>Provide an export for discovery education</description>
-    <columns>
-      <column column="CC.SCHOOLID">SchoolID</column>
-      <column column="SCHOOLS.DISTRICT_NUMBER">District_Number</column>
-      <column column="SCHOOLS.NAME">Name</column>
-      <column column="SECTIONS.ID">ID</column>
-      <column column="CC.TERMID">TERMID</column>
-      <column column="TEACHERS.DCID">DCID</column>
-      <column column="STUDENTS.STUDENT_NUMBER">STUDENT_NUMBER</column>
-      <column column="CC.COURSE_NUMBER">COURSE_NUMBER</column>
-    </columns>
-    <sql>
-      <![CDATA[
-				SELECT DISTINCT
-                CASE 
-                    WHEN cc.schoolid = 280010 THEN '45BA-97D3'
-                    WHEN cc.schoolid = 280020 THEN '66AD-DAF6'
-                    WHEN cc.schoolid = 280030 THEN '7268-4754'
-                    WHEN cc.schoolid = 280040 THEN '4323-9D27'
-                    WHEN cc.schoolid = 280050 THEN '7269-DF64'
-                    WHEN cc.schoolid = 280060 THEN '726C-E3C2'
-                    WHEN cc.schoolid = 280070 THEN '726B-6BF6'
-                    WHEN cc.schoolid = 280080 THEN '492B-82AB'
-                    WHEN cc.schoolid = 280090 THEN '4A39-8A83'
-                    WHEN cc.schoolid = 280100 THEN '66AD-A812'
-                    WHEN cc.schoolid = 280110 THEN '66AD-D2B7'
-                    WHEN cc.schoolid = 280120 THEN '66AD-1D1A'
-                    WHEN cc.schoolid = 280180 THEN '726C-69B7'
-                    WHEN cc.schoolid = 288010 THEN ''
-                END AS "Site Passcode",
-                'KIBSD' AS "Account Name",
-                sch.name AS "Site Name",
-                sec.id AS "Class ID",
-                t.email_addr || '@office365.discoveryeducation.com' AS "UserName",
-                TO_CHAR(t.dcid) AS "Teacher ID",
-                '' AS "Student ID",
-                'N' AS "Remove Flag"
-        FROM CC cc
-	        JOIN Sections sec ON cc.SectionID = sec.ID
-	        JOIN Teachers t ON sec.Teacher = t.ID
-	        JOIN Courses c ON cc.Course_Number = c.Course_Number
-	        JOIN Schools sch ON cc.SchoolID = sch.school_number
-        WHERE  
-            (
-                    (cc.termid = TO_NUMBER( TO_CHAR(EXTRACT(YEAR FROM SYSDATE) - CASE WHEN EXTRACT(MONTH FROM SYSDATE) >= 7 THEN 1990 ELSE 1991 END) || CASE WHEN EXTRACT(MONTH FROM SYSDATE) > 7 THEN '01' ELSE '02' END ))
-                OR
-                    (SUBSTR(c.course_name,0,7) = 'Science' AND FLOOR(cc.termid/100) = EXTRACT(YEAR FROM SYSDATE) + CASE WHEN EXTRACT (MONTH FROM SYSDATE) >=7 THEN 1 ELSE 0 END - 1991)
-            )
-        AND
-            cc.schoolid NOT IN (288010,999999)
-        AND (
-                c.credittype = 'SC'
-                OR c.course_name LIKE '%SCIENCE%'
-            )
-        UNION
-        SELECT DISTINCT
-                CASE 
-                    WHEN s.schoolid = 280010 THEN '45BA-97D3'
-                    WHEN s.schoolid = 280020 THEN '66AD-DAF6'
-                    WHEN s.schoolid = 280030 THEN '7268-4754'
-                    WHEN s.schoolid = 280040 THEN '4323-9D27'
-                    WHEN s.schoolid = 280050 THEN '7269-DF64'
-                    WHEN s.schoolid = 280060 THEN '726C-E3C2'
-                    WHEN s.schoolid = 280070 THEN '726B-6BF6'
-                    WHEN s.schoolid = 280080 THEN '492B-82AB'
-                    WHEN s.schoolid = 280090 THEN '4A39-8A83'
-                    WHEN s.schoolid = 280100 THEN '66AD-A812'
-                    WHEN s.schoolid = 280110 THEN '66AD-D2B7'
-                    WHEN s.schoolid = 280120 THEN '66AD-1D1A'
-                    WHEN s.schoolid = 280180 THEN '726C-69B7'
-                    WHEN s.schoolid = 288010 THEN ''
-                END AS "Site Passcode",
-                'KIBSD' AS "Account Name",
-                sch.name AS "Site Name",
-                sec.id AS "Class ID",
-                sa.computer_ID || '@kibsd.org@office365.discoveryeducation.com' AS "UserName",
-                '' AS "TeacherID",
-                TO_CHAR(s.student_number) AS "Student ID",
-                'N' AS "Remove Flag"
-        FROM CC cc
-            JOIN Sections sec ON cc.SectionID = sec.ID
-            JOIN Courses c ON cc.Course_Number = c.Course_Number
-            JOIN Students s ON cc.studentid = s.id
-            JOIN U_DEF_ACCOUNT_MGMT sa ON s.dcid = sa.studentsdcid
-	          JOIN Schools sch ON s.SchoolID = sch.school_number
-        WHERE 
-                cc.schoolid NOT IN (999999, 288010)
-            AND 
-                (
-                        (cc.termid = TO_NUMBER( TO_CHAR(EXTRACT(YEAR FROM SYSDATE) - CASE WHEN EXTRACT(MONTH FROM SYSDATE) >= 7 THEN 1990 ELSE 1991 END) || CASE WHEN EXTRACT(MONTH FROM SYSDATE) > 7 THEN '01' ELSE '02' END ))
-                    OR
-                        (SUBSTR(c.course_name,0,7) = 'Science' AND FLOOR(cc.termid/100) = EXTRACT(YEAR FROM SYSDATE) + CASE WHEN EXTRACT (MONTH FROM SYSDATE) >=7 THEN 1 ELSE 0 END - 1991)
-                )
-            AND 
-                (
-                    c.credittype = 'SC'
-                    OR c.course_name LIKE '%SCIENCE%'
-                )
-			]]>
-    </sql>
-  </query>
+        </sql>
+    </query>
+    <query name="kibsd.discovery.roster" coreTable="CC" flattened="true">
+        <summary>Discovery Education Combined Roster</summary>
+        <description>Provide an export for discovery education</description>
+        <columns>
+            <column column="CC.SCHOOLID">SchoolID</column>
+            <column column="SCHOOLS.DISTRICT_NUMBER">District_Number</column>
+            <column column="SCHOOLS.NAME">Name</column>
+            <column column="SECTIONS.ID">ID</column>
+            <column column="CC.TERMID">TERMID</column>
+            <column column="TEACHERS.DCID">DCID</column>
+            <column column="STUDENTS.STUDENT_NUMBER">STUDENT_NUMBER</column>
+            <column column="CC.COURSE_NUMBER">COURSE_NUMBER</column>
+        </columns>
+        <sql>
+            <![CDATA[
+			    SELECT DISTINCT
+                    CASE 
+                        WHEN cc.schoolid = 280010 THEN '45BA-97D3'
+                        WHEN cc.schoolid = 280020 THEN '66AD-DAF6'
+                        WHEN cc.schoolid = 280030 THEN '7268-4754'
+                        WHEN cc.schoolid = 280040 THEN '4323-9D27'
+                        WHEN cc.schoolid = 280050 THEN '7269-DF64'
+                        WHEN cc.schoolid = 280060 THEN '726C-E3C2'
+                        WHEN cc.schoolid = 280070 THEN '726B-6BF6'
+                        WHEN cc.schoolid = 280080 THEN '492B-82AB'
+                        WHEN cc.schoolid = 280090 THEN '4A39-8A83'
+                        WHEN cc.schoolid = 280100 THEN '66AD-A812'
+                        WHEN cc.schoolid = 280110 THEN '66AD-D2B7'
+                        WHEN cc.schoolid = 280120 THEN '66AD-1D1A'
+                        WHEN cc.schoolid = 280180 THEN '726C-69B7'
+                        WHEN cc.schoolid = 288010 THEN ''
+                    END AS "Site Passcode",
+                    'KIBSD' AS "Account Name",
+                    sch.name AS "Site Name",
+                    sec.id AS "Class ID",
+                    t.email_addr || '@office365.discoveryeducation.com' AS "UserName",
+                    TO_CHAR(t.dcid) AS "Teacher ID",
+                    '' AS "Student ID",
+                    'N' AS "Remove Flag"
+                
+                FROM SECTIONTEACHER st
+                    JOIN Sections sec ON st.SectionID = sec.ID 
+                    JOIN Teachers t ON st.teacherid = t.ID 
+                    JOIN Courses c ON sec.course_number = c.course_number
+                    JOIN Schools sch ON sec.schoolid = sch.school_number
+                    JOIN CC cc ON st.sectionid = cc.sectionid
+                    JOIN Students s ON cc.studentid = s.id
+    
+                WHERE
+                    st.roleid IN(25,26) 
+                AND
+                    (
+                            (cc.termid = TO_NUMBER( TO_CHAR(EXTRACT(YEAR FROM SYSDATE) - CASE WHEN EXTRACT(MONTH FROM SYSDATE) >= 7 THEN 1990 ELSE 1991 END) || CASE WHEN EXTRACT(MONTH FROM SYSDATE) > 7 THEN '01' ELSE '02' END ))
+                        OR
+                            (SUBSTR(c.course_name,0,7) = 'Science' AND FLOOR(cc.termid/100) = EXTRACT(YEAR FROM SYSDATE) + CASE WHEN EXTRACT (MONTH FROM SYSDATE) >=7 THEN 1 ELSE 0 END - 1991)
+                    )
+                AND 
+                    sch.school_number != 288010
+                AND 
+                    (c.credittype = 'SC' OR c.course_name LIKE '%Science%')
+            UNION
+                SELECT DISTINCT
+                    CASE 
+                        WHEN s.schoolid = 280010 THEN '45BA-97D3'
+                        WHEN s.schoolid = 280020 THEN '66AD-DAF6'
+                        WHEN s.schoolid = 280030 THEN '7268-4754'
+                        WHEN s.schoolid = 280040 THEN '4323-9D27'
+                        WHEN s.schoolid = 280050 THEN '7269-DF64'
+                        WHEN s.schoolid = 280060 THEN '726C-E3C2'
+                        WHEN s.schoolid = 280070 THEN '726B-6BF6'
+                        WHEN s.schoolid = 280080 THEN '492B-82AB'
+                        WHEN s.schoolid = 280090 THEN '4A39-8A83'
+                        WHEN s.schoolid = 280100 THEN '66AD-A812'
+                        WHEN s.schoolid = 280110 THEN '66AD-D2B7'
+                        WHEN s.schoolid = 280120 THEN '66AD-1D1A'
+                        WHEN s.schoolid = 280180 THEN '726C-69B7'
+                        WHEN s.schoolid = 288010 THEN ''
+                    END AS "Site Passcode",
+                    'KIBSD' AS "Account Name",
+                    sch.name AS "Site Name",
+                    sec.id AS "Class ID",
+                    sa.computer_ID || '@kibsd.org@office365.discoveryeducation.com' AS "UserName",
+                    '' AS "TeacherID",
+                    TO_CHAR(s.student_number) AS "Student ID",
+                    'N' AS "Remove Flag"
+                FROM CC cc
+                    JOIN Sections sec ON cc.SectionID = sec.ID
+                    JOIN Courses c ON cc.Course_Number = c.Course_Number
+                    JOIN Students s ON cc.studentid = s.id
+                    JOIN U_DEF_ACCOUNT_MGMT sa ON s.dcid = sa.studentsdcid
+	                  JOIN Schools sch ON s.SchoolID = sch.school_number
+                WHERE 
+                        cc.schoolid NOT IN (999999, 288010)
+                AND 
+                    (
+                            (cc.termid = TO_NUMBER( TO_CHAR(EXTRACT(YEAR FROM SYSDATE) - CASE WHEN EXTRACT(MONTH FROM SYSDATE) >= 7 THEN 1990 ELSE 1991 END) || CASE WHEN EXTRACT(MONTH FROM SYSDATE) > 7 THEN '01' ELSE '02' END ))
+                        OR
+                            (SUBSTR(c.course_name,0,7) = 'Science' AND FLOOR(cc.termid/100) = EXTRACT(YEAR FROM SYSDATE) + CASE WHEN EXTRACT (MONTH FROM SYSDATE) >=7 THEN 1 ELSE 0 END - 1991)
+                    )
+                AND 
+                    (c.credittype = 'SC' OR c.course_name LIKE '%SCIENCE%')
+		    ]]>
+        </sql>
+    </query>
 </queries>

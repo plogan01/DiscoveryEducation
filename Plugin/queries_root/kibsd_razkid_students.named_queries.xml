@@ -14,27 +14,33 @@
 		<sql>
 			<![CDATA[
 				SELECT DISTINCT
-                s.student_number AS "Student ID",
-                t.email_addr,
-                s.first_name AS "First Name",
-                s.last_name AS "Last Name",
-                '' as reading_level,
-                sa.computer_password,
-                CASE 
-                    WHEN s.grade_level = 0 THEN 'KG'
-                    ELSE '0' || TO_CHAR(s.grade_level)
-                END AS "Grade"             
-        FROM CC cc
-            JOIN Sections sec ON cc.SectionID = sec.ID
-            JOIN Teachers t ON sec.teacher = t.id
-            JOIN Courses c ON cc.Course_Number = c.Course_Number
-            JOIN Students s ON cc.studentid = s.id
-            JOIN U_DEF_ACCOUNT_MGMT sa ON s.dcid = sa.studentsdcid
-	          JOIN Schools sch ON s.SchoolID = sch.school_number
-        WHERE FLOOR(cc.termid/100) = EXTRACT(YEAR FROM SYSDATE) + CASE WHEN EXTRACT (MONTH FROM SYSDATE) >=7 THEN 1 ELSE 0 END - 1991
-            AND c.COURSE_NAME LIKE '%Reading%'
-            AND cc.schoolid IN (280010,280020,280150,280030,280040,280080,280090,280100,280110,280060,280120,280180)
-            AND s.grade_level IN (0,1,2,3,4,5)
+                    s.student_number AS "Student ID",
+                    t.email_addr,
+                    s.first_name AS "First Name",
+                    s.last_name AS "Last Name",
+                    '' as reading_level,
+                    sa.computer_password,
+                    CASE 
+                        WHEN s.grade_level = 0 THEN 'KG'
+                        ELSE '0' || TO_CHAR(s.grade_level)
+                    END AS "Grade"  
+                    
+                FROM CC cc
+                    JOIN Sections sec ON cc.SectionID = sec.ID
+                    JOIN Teachers t ON sec.teacher = t.id
+                    JOIN Courses c ON cc.Course_Number = c.Course_Number
+                    JOIN Students s ON cc.studentid = s.id
+                    JOIN U_DEF_ACCOUNT_MGMT sa ON s.dcid = sa.studentsdcid
+	                JOIN Schools sch ON s.SchoolID = sch.school_number
+
+                WHERE 
+                    FLOOR(cc.termid/100) = EXTRACT(YEAR FROM SYSDATE) + CASE WHEN EXTRACT (MONTH FROM SYSDATE) >=7 THEN 1 ELSE 0 END - 1991
+                    AND 
+                        c.COURSE_NAME LIKE '%Reading%'
+                    AND 
+                        cc.schoolid IN (280010,280020,280150,280030,280040,280080,280090,280100,280110,280060,280120,280180)
+                    AND 
+                        s.grade_level IN (0,1,2,3,4,5)
 			]]>
 		</sql>
 	</query>
@@ -50,23 +56,31 @@
       <column column="CC.EXPRESSION">EXPRESSION</column>
     </columns>
     <sql>
-      <![CDATA[
-				SELECT DISTINCT
+        <![CDATA[
+            SELECT DISTINCT
                 t.email_addr AS "Teacher ID",
                 t.First_Name AS "First Name",
                 t.Last_Name AS "Last Name",
                 t.email_addr,
                 sch.name AS "Site Name",
-                'teacher' AS "Role"                
-        FROM CC cc
-	        JOIN Sections sec ON cc.SectionID = sec.ID
-	        JOIN Teachers t ON sec.Teacher = t.ID
-	        JOIN Courses c ON cc.Course_Number = c.Course_Number
-	        JOIN Schools sch ON cc.SchoolID = sch.school_number
-        WHERE FLOOR(cc.termid/100) = EXTRACT(YEAR FROM SYSDATE) + CASE WHEN EXTRACT (MONTH FROM SYSDATE) >=7 THEN 1 ELSE 0 END - 1991
-          AND c.COURSE_NAME LIKE '%Reading%'
-          AND cc.schoolid IN (280010,280020,280150,280030,280040,280080,280090,280100,280110,280060,280120,280180)
-			]]>
+                'teacher' AS "Role"
+                
+            FROM SECTIONTEACHER st
+                JOIN Sections sec ON st.SectionID = sec.ID 
+                JOIN Teachers t ON st.teacherid = t.ID 
+                JOIN Courses c ON sec.course_number = c.course_number
+                JOIN Schools sch ON sec.schoolid = sch.school_number
+                JOIN CC cc ON st.sectionid = cc.sectionid
+            
+            WHERE 
+                st.roleid IN(25,26) 
+            AND
+                FLOOR(cc.termid/100) = EXTRACT(YEAR FROM SYSDATE) + CASE WHEN EXTRACT (MONTH FROM SYSDATE) >=7 THEN 1 ELSE 0 END - 1991
+            AND 
+                c.COURSE_NAME LIKE '%Reading%'
+            AND 
+                cc.schoolid IN (280010,280020,280150,280030,280040,280080,280090,280100,280110,280060,280120,280180)
+	    ]]>
     </sql>
   </query>
 </queries>
