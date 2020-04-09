@@ -73,7 +73,7 @@
                 JOIN CC cc ON st.sectionid = cc.sectionid
             
             WHERE 
-                st.roleid IN(25,26) 
+                st.roleid IN(25,26,28) 
             AND
                 FLOOR(cc.termid/100) = EXTRACT(YEAR FROM SYSDATE) + CASE WHEN EXTRACT (MONTH FROM SYSDATE) >=7 THEN 1 ELSE 0 END - 1991
             AND 
